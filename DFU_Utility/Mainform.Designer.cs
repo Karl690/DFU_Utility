@@ -30,6 +30,7 @@ namespace DFU_Utility
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Mainform));
             this.cmbDevices = new System.Windows.Forms.ComboBox();
             this.txtFirmware = new System.Windows.Forms.TextBox();
             this.lblStatus = new System.Windows.Forms.Label();
@@ -172,6 +173,7 @@ namespace DFU_Utility
             this.Controls.Add(this.txtFirmware);
             this.Controls.Add(this.cmbDevices);
             this.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(6, 7, 6, 7);
             this.Name = "Mainform";
             this.Text = "DFU_Utility";
