@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{B0E86A0D-6C6A-46A0-B72F-B2C3BCB330B6}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>UniversalDfuTool</RootNamespace>
-    <AssemblyName>UniversalDfuTool</AssemblyName>
+    <RootNamespace>DFU_Utility</RootNamespace>
+    <AssemblyName>DFUUtility</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -79,6 +79,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">

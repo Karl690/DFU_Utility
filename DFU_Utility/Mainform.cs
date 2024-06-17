@@ -19,7 +19,6 @@ namespace DFU_Utility
     public partial class Mainform : Form
     {
         int selectedPID, selectedVID;
-        string selectedSerialNumber;
         bool isDetected = false;
         bool IsRunningProcess = false;
         string RunProcessType = ""; //Uploading, Geting

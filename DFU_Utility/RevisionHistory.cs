@@ -8,7 +8,7 @@ namespace DFU_Utility
 {
     public class RevisionHistory
     {
-        static public string RevisionHeader = @"UniversalDfuTool";
+        static public string RevisionHeader = @"DFU_Utility";
         static public string MajorStep = "1";
         static public string MinorStep = "0.01";
         static public string RevisionDate = @"6/17/2024";
