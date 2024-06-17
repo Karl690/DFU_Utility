@@ -96,24 +96,29 @@ namespace DFU_Utility
         public void runProcesss(string app, string args)
         {
             IsRunningProcess = true;
-            
-            Process process = new Process();
-            process.EnableRaisingEvents = true;
-            process.StartInfo.FileName = app;
-            process.StartInfo.Arguments = args;
-            process.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
-            process.StartInfo.CreateNoWindow = true;
-            process.StartInfo.UseShellExecute = false;
-            process.StartInfo.RedirectStandardOutput = true;
-            process.OutputDataReceived += new DataReceivedEventHandler(Process_OutputDataReceived);
-            process.StartInfo.RedirectStandardError = true;
-            process.ErrorDataReceived += new DataReceivedEventHandler(Process_OutputDataReceived);
-            process.Exited += Process_Exited;
-            process.Start();
-            // Start the asynchronous read of the standard output stream.
-            process.BeginOutputReadLine();
-            process.BeginErrorReadLine();
-            process.Start();
+            try
+            {
+                Process process = new Process();
+                process.EnableRaisingEvents = true;
+                process.StartInfo.FileName = app;
+                process.StartInfo.Arguments = args;
+                process.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
+                process.StartInfo.CreateNoWindow = true;
+                process.StartInfo.UseShellExecute = false;
+                process.StartInfo.RedirectStandardOutput = true;
+                process.OutputDataReceived += new DataReceivedEventHandler(Process_OutputDataReceived);
+                process.StartInfo.RedirectStandardError = true;
+                process.ErrorDataReceived += new DataReceivedEventHandler(Process_OutputDataReceived);
+                process.Exited += Process_Exited;
+                process.Start();
+                // Start the asynchronous read of the standard output stream.
+                process.BeginOutputReadLine();
+                process.BeginErrorReadLine();
+                process.Start();
+            } catch(Exception)
+            {
+
+            }
         }
 
         private void uploadFirmware()
@@ -348,9 +353,17 @@ namespace DFU_Utility
             string app = $"{appPath}/dfu-util/wdi-simple.exe";
             string args = $"--vid {selectedVID.ToString("X")} --pid {selectedPID.ToString("X")} -t 0 -b";
             var process = new Process();// (app, args);
-            process.StartInfo.FileName = app;
-            process.StartInfo.Arguments = args;
-            process.Start();
+            try
+            {
+                process.StartInfo.FileName = app;
+                process.StartInfo.Arguments = args;
+                process.Start();
+            }
+            catch (Exception)
+            {
+
+            }
+            
         }
 
         private void timer1_Tick(object sender, EventArgs e)
@@ -361,7 +374,7 @@ namespace DFU_Utility
         public void ChangeAvaliableStatus()
         {
             bool status = IsRunningProcess ? false : isDetected;
-            btnDriverInstaller.Enabled = isDetected;
+            btnDriverInstaller.Enabled = !IsRunningProcess;
             lblStatus.Text = isDetected? "Detected": "Not Detected";
             lblStatus.ForeColor = isDetected ? Color.Lime: Color.Yellow;
             btnProgram.Enabled = status && File.Exists(txtFirmware.Tag?.ToString());
