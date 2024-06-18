@@ -62,13 +62,6 @@ namespace DFU_Utility
         }
         public void setStatusDevices()
         {
-            //dfuDevices[0].isConnected = checkingDfuDevices[0].Serial == ""? false: checkingDfuDevices[0].isConnected;
-            //dfuDevices[1].isConnected = checkingDfuDevices[1].Serial == "" ? false : checkingDfuDevices[1].isConnected;
-            //dfuDevices[0].Serial = checkingDfuDevices[0].Serial;
-            //dfuDevices[1].Serial = checkingDfuDevices[1].Serial;
-            //detectedDevices = 0;
-            //if (dfuDevices[0].isConnected) detectedDevices++;
-            //if (dfuDevices[1].isConnected) detectedDevices++;
             try
             {
                 if (this.InvokeRequired)
@@ -426,15 +419,15 @@ namespace DFU_Utility
             {
                 if(dev.type == DEVICEINDEX.STM32)
                 {
-                    ButtonStm32.Text = dev.isConnected ? "Detected" : "Not Detected";
-                    ButtonStm32.ForeColor = dev.isConnected ? Color.Lime : Color.Red;
-                    ButtonStm32.Text += $"\nVID/PID:[0x{dev.VID.ToString("X")}:0x{dev.PID.ToString("X")}]\nSerial:{dev.Serial}";
+                    groupBoxSTM.Text = $"STM32 {(dev.isConnected ? "Detected" : "Not Detected")}";
+                    groupBoxSTM.ForeColor = dev.isConnected ? Color.Lime : Color.Red;
+                    ButtonStm32.Enabled = IsRunningProcess ? false : dev.isConnected;
                 }
                 else
                 {
-                    ButtonGD32.Text = dev.isConnected ? "Detected" : "Not Detected";
-                    ButtonGD32.ForeColor = dev.isConnected ? Color.Lime : Color.Red;
-                    ButtonGD32.Text += $"\nVID/PID:[0x{dev.VID.ToString("X")}:0x{dev.PID.ToString("X")}]\nSerial:{dev.Serial}";
+                    groupBoxGD.Text = $"GD32 {(dev.isConnected ? "Detected" : "Not Detected")}";
+                    groupBoxGD.ForeColor = dev.isConnected ? Color.Lime : Color.Red;
+                    ButtonGD32.Enabled = IsRunningProcess ? false : dev.isConnected;
                 }
                 if(dev.isConnected)
                 {
@@ -442,6 +435,7 @@ namespace DFU_Utility
                 }
             }
             buttonInstallSTM32Driver.Enabled = !IsRunningProcess;
+            buttonInstallGd32Driver.Enabled = !IsRunningProcess;
             //btnProgram.Enabled = isAnyDetected && File.Exists(txtFirmware.Tag?.ToString());
             //btnProgram.ForeColor = isAnyDetected ? Color.Yellow : Color.Gray;
         }
@@ -486,6 +480,23 @@ namespace DFU_Utility
 
             }
 
+        }
+
+        private void btnPictureShowHide_Click(object sender, EventArgs e)
+        {
+            pictureBoxScreen.Visible = !pictureBoxScreen.Visible;
+            if (pictureBoxScreen.Visible)
+            {
+                btnPictureShowHide.Text = "<<";
+                richTextBox1.Left = 760;
+                richTextBox1.Width = this.Width - richTextBox1.Left - 20;
+            }
+            else {
+                btnPictureShowHide.Text = ">>";
+                richTextBox1.Left = 363;
+                richTextBox1.Width = this.Width - richTextBox1.Left - 20;
+            }
+                
         }
     }
     public class DFUDevice

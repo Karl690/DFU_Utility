@@ -42,10 +42,13 @@ namespace DFU_Utility
             this.ButtonStm32 = new System.Windows.Forms.Button();
             this.ButtonGD32 = new System.Windows.Forms.Button();
             this.buttonInstallGd32Driver = new System.Windows.Forms.Button();
-            this.groupBoxGD32 = new System.Windows.Forms.GroupBox();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.groupBoxGD32.SuspendLayout();
-            this.groupBox2.SuspendLayout();
+            this.groupBoxGD = new System.Windows.Forms.GroupBox();
+            this.groupBoxSTM = new System.Windows.Forms.GroupBox();
+            this.pictureBoxScreen = new System.Windows.Forms.PictureBox();
+            this.btnPictureShowHide = new System.Windows.Forms.Button();
+            this.groupBoxGD.SuspendLayout();
+            this.groupBoxSTM.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxScreen)).BeginInit();
             this.SuspendLayout();
             // 
             // txtFirmware
@@ -78,9 +81,9 @@ namespace DFU_Utility
             this.richTextBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.richTextBox1.Location = new System.Drawing.Point(363, 57);
+            this.richTextBox1.Location = new System.Drawing.Point(756, 91);
             this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(824, 520);
+            this.richTextBox1.Size = new System.Drawing.Size(431, 486);
             this.richTextBox1.TabIndex = 11;
             this.richTextBox1.Text = "";
             // 
@@ -88,7 +91,7 @@ namespace DFU_Utility
             // 
             this.buttonInstallSTM32Driver.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonInstallSTM32Driver.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonInstallSTM32Driver.Location = new System.Drawing.Point(0, 34);
+            this.buttonInstallSTM32Driver.Location = new System.Drawing.Point(5, 28);
             this.buttonInstallSTM32Driver.MaximumSize = new System.Drawing.Size(165, 100);
             this.buttonInstallSTM32Driver.MinimumSize = new System.Drawing.Size(165, 100);
             this.buttonInstallSTM32Driver.Name = "buttonInstallSTM32Driver";
@@ -129,7 +132,6 @@ namespace DFU_Utility
             // 
             // button1
             // 
-            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button1.Location = new System.Drawing.Point(12, 12);
             this.button1.MaximumSize = new System.Drawing.Size(165, 45);
@@ -144,7 +146,7 @@ namespace DFU_Utility
             // 
             // ButtonStm32
             // 
-            this.ButtonStm32.Location = new System.Drawing.Point(171, 28);
+            this.ButtonStm32.Location = new System.Drawing.Point(175, 28);
             this.ButtonStm32.MaximumSize = new System.Drawing.Size(165, 100);
             this.ButtonStm32.MinimumSize = new System.Drawing.Size(165, 100);
             this.ButtonStm32.Name = "ButtonStm32";
@@ -156,7 +158,7 @@ namespace DFU_Utility
             // 
             // ButtonGD32
             // 
-            this.ButtonGD32.Location = new System.Drawing.Point(165, 21);
+            this.ButtonGD32.Location = new System.Drawing.Point(176, 34);
             this.ButtonGD32.MaximumSize = new System.Drawing.Size(165, 100);
             this.ButtonGD32.MinimumSize = new System.Drawing.Size(165, 100);
             this.ButtonGD32.Name = "ButtonGD32";
@@ -170,7 +172,7 @@ namespace DFU_Utility
             // 
             this.buttonInstallGd32Driver.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonInstallGd32Driver.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonInstallGd32Driver.Location = new System.Drawing.Point(6, 21);
+            this.buttonInstallGd32Driver.Location = new System.Drawing.Point(5, 34);
             this.buttonInstallGd32Driver.MaximumSize = new System.Drawing.Size(165, 100);
             this.buttonInstallGd32Driver.MinimumSize = new System.Drawing.Size(165, 100);
             this.buttonInstallGd32Driver.Name = "buttonInstallGd32Driver";
@@ -180,28 +182,51 @@ namespace DFU_Utility
             this.buttonInstallGd32Driver.UseVisualStyleBackColor = true;
             this.buttonInstallGd32Driver.Click += new System.EventHandler(this.buttonInstallGd32Driver_Click);
             // 
-            // groupBoxGD32
+            // groupBoxGD
             // 
-            this.groupBoxGD32.Controls.Add(this.buttonInstallGd32Driver);
-            this.groupBoxGD32.Controls.Add(this.ButtonGD32);
-            this.groupBoxGD32.Location = new System.Drawing.Point(12, 203);
-            this.groupBoxGD32.Name = "groupBoxGD32";
-            this.groupBoxGD32.Size = new System.Drawing.Size(336, 150);
-            this.groupBoxGD32.TabIndex = 16;
-            this.groupBoxGD32.TabStop = false;
-            this.groupBoxGD32.Text = "groupBox1";
+            this.groupBoxGD.Controls.Add(this.buttonInstallGd32Driver);
+            this.groupBoxGD.Controls.Add(this.ButtonGD32);
+            this.groupBoxGD.ForeColor = System.Drawing.Color.Lime;
+            this.groupBoxGD.Location = new System.Drawing.Point(12, 203);
+            this.groupBoxGD.Name = "groupBoxGD";
+            this.groupBoxGD.Size = new System.Drawing.Size(345, 150);
+            this.groupBoxGD.TabIndex = 16;
+            this.groupBoxGD.TabStop = false;
+            this.groupBoxGD.Text = "GD32";
             // 
-            // groupBox2
+            // groupBoxSTM
             // 
-            this.groupBox2.Controls.Add(this.buttonInstallSTM32Driver);
-            this.groupBox2.Controls.Add(this.ButtonStm32);
-            this.groupBox2.ForeColor = System.Drawing.Color.Lime;
-            this.groupBox2.Location = new System.Drawing.Point(12, 63);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(345, 134);
-            this.groupBox2.TabIndex = 17;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "STM32";
+            this.groupBoxSTM.Controls.Add(this.buttonInstallSTM32Driver);
+            this.groupBoxSTM.Controls.Add(this.ButtonStm32);
+            this.groupBoxSTM.ForeColor = System.Drawing.Color.Lime;
+            this.groupBoxSTM.Location = new System.Drawing.Point(12, 63);
+            this.groupBoxSTM.Name = "groupBoxSTM";
+            this.groupBoxSTM.Size = new System.Drawing.Size(345, 134);
+            this.groupBoxSTM.TabIndex = 17;
+            this.groupBoxSTM.TabStop = false;
+            this.groupBoxSTM.Text = "STM32";
+            // 
+            // pictureBoxScreen
+            // 
+            this.pictureBoxScreen.BackgroundImage = global::DFU_Utility.Properties.Resources.screen;
+            this.pictureBoxScreen.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pictureBoxScreen.Location = new System.Drawing.Point(332, 91);
+            this.pictureBoxScreen.Name = "pictureBoxScreen";
+            this.pictureBoxScreen.Size = new System.Drawing.Size(453, 481);
+            this.pictureBoxScreen.TabIndex = 18;
+            this.pictureBoxScreen.TabStop = false;
+            // 
+            // btnPictureShowHide
+            // 
+            this.btnPictureShowHide.Font = new System.Drawing.Font("Arial Narrow", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnPictureShowHide.Location = new System.Drawing.Point(363, 57);
+            this.btnPictureShowHide.Margin = new System.Windows.Forms.Padding(0, 3, 3, 3);
+            this.btnPictureShowHide.Name = "btnPictureShowHide";
+            this.btnPictureShowHide.Size = new System.Drawing.Size(38, 27);
+            this.btnPictureShowHide.TabIndex = 19;
+            this.btnPictureShowHide.Text = "<<";
+            this.btnPictureShowHide.UseVisualStyleBackColor = true;
+            this.btnPictureShowHide.Click += new System.EventHandler(this.btnPictureShowHide_Click);
             // 
             // Mainform
             // 
@@ -209,21 +234,24 @@ namespace DFU_Utility
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
             this.ClientSize = new System.Drawing.Size(1199, 589);
-            this.Controls.Add(this.groupBox2);
-            this.Controls.Add(this.groupBoxGD32);
             this.Controls.Add(this.richTextBox1);
+            this.Controls.Add(this.btnPictureShowHide);
+            this.Controls.Add(this.groupBoxSTM);
+            this.Controls.Add(this.groupBoxGD);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.btnSelectDfuFile);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.txtFirmware);
+            this.Controls.Add(this.pictureBoxScreen);
             this.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(6, 7, 6, 7);
             this.Name = "Mainform";
             this.Text = "DFU_Utility";
-            this.groupBoxGD32.ResumeLayout(false);
-            this.groupBox2.ResumeLayout(false);
+            this.groupBoxGD.ResumeLayout(false);
+            this.groupBoxSTM.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxScreen)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -241,8 +269,10 @@ namespace DFU_Utility
         private System.Windows.Forms.Button ButtonStm32;
         private System.Windows.Forms.Button ButtonGD32;
         public System.Windows.Forms.Button buttonInstallGd32Driver;
-        private System.Windows.Forms.GroupBox groupBoxGD32;
-        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.GroupBox groupBoxGD;
+        private System.Windows.Forms.GroupBox groupBoxSTM;
+        private System.Windows.Forms.PictureBox pictureBoxScreen;
+        private System.Windows.Forms.Button btnPictureShowHide;
     }
 }
 
