@@ -9,6 +9,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Management;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
@@ -18,16 +19,17 @@ namespace DFU_Utility
 {
     public partial class Mainform : Form
     {
-        int selectedPID, selectedVID;
-        bool isDetected = false;
         bool IsRunningProcess = false;
+        int detectedDevices = 0;
         string RunProcessType = ""; //Uploading, Geting
         public DFUDevice[] dfuDevices = new DFUDevice[2];
+        public DFUDevice[] checkingDfuDevices;
         public string DfuSourceFileName { get; private  set; }
         
         public Mainform()
         {
             InitializeComponent();
+            timer1.Interval = 1000;
             string path = Properties.Settings.Default.firwarePath;
             if (File.Exists(path))
             {
@@ -38,17 +40,55 @@ namespace DFU_Utility
             btnProgram.Enabled = false;
 
             DFUDevice stm32 = new DFUDevice();
+            stm32.type = DEVICEINDEX.STM32;
             stm32.VID = 0x0483; stm32.PID = 0xDF11; stm32.Serial = ""; stm32.isConnected = false; stm32.Type = "STM32";
             DFUDevice gd32 = new DFUDevice();
-            stm32.VID = 0x28e9; stm32.PID = 0x0189; stm32.Serial = ""; stm32.isConnected = false; gd32.Type = "GD32";
+            gd32.type = DEVICEINDEX.GD32;
+            gd32.VID = 0x28e9; gd32.PID = 0x0189; gd32.Serial = ""; gd32.isConnected = false; gd32.Type = "GD32";
 
             dfuDevices[(int)DEVICEINDEX.STM32] = stm32;
             dfuDevices[(int)DEVICEINDEX.GD32] = gd32;
-            cmbDevices.Items.Add("STM32 Microcontrollers");
-            cmbDevices.Items.Add("GD32 Microcontrollers");
-            cmbDevices.SelectedIndex = 0;
+            checkingDfuDevices = (DFUDevice[])dfuDevices.Clone();
+            RDStm32.Checked = true;
+            
             this.Text = "DFU_Utility v" + RevisionHistory.GetCurrentVersion();
             
+        }
+        public void resetDevices()
+        {
+            checkingDfuDevices[0].isConnected = false;
+            checkingDfuDevices[1].isConnected = false;
+            checkingDfuDevices[0].Serial = "";
+            checkingDfuDevices[1].Serial = "";
+        }
+        public void setStatusDevices()
+        {
+            //dfuDevices[0].isConnected = checkingDfuDevices[0].Serial == ""? false: checkingDfuDevices[0].isConnected;
+            //dfuDevices[1].isConnected = checkingDfuDevices[1].Serial == "" ? false : checkingDfuDevices[1].isConnected;
+            //dfuDevices[0].Serial = checkingDfuDevices[0].Serial;
+            //dfuDevices[1].Serial = checkingDfuDevices[1].Serial;
+            //detectedDevices = 0;
+            //if (dfuDevices[0].isConnected) detectedDevices++;
+            //if (dfuDevices[1].isConnected) detectedDevices++;
+            try
+            {
+                if (this.InvokeRequired)
+                {
+                    this.Invoke((MethodInvoker)delegate ()
+                    {
+                        ChangeAvaliableStatus();
+                    });
+                }
+                else
+                {
+                    ChangeAvaliableStatus();
+                }
+
+            }
+            catch (Exception)
+            {
+
+            }
         }
        
         private void txtFirmware_MouseDoubleClick(object sender, MouseEventArgs e)
@@ -112,9 +152,9 @@ namespace DFU_Utility
                 process.Exited += Process_Exited;
                 process.Start();
                 // Start the asynchronous read of the standard output stream.
-                process.BeginOutputReadLine();
-                process.BeginErrorReadLine();
-                process.Start();
+                //process.BeginOutputReadLine();
+                //process.BeginErrorReadLine();
+                //process.Start();
             } catch(Exception)
             {
 
@@ -128,16 +168,17 @@ namespace DFU_Utility
                 MessageBox.Show("Please choose the firmware file(*.DFU).");
                 return;
             }
-            if(!isDetected)
+            DFUDevice selcetedDevice = RDStm32.Checked ? dfuDevices[0] : dfuDevices[1];
+
+            if (!selcetedDevice.isConnected)
             {
                 MessageBox.Show("Device was not detected");
                 return;
             }
-            DFUDevice selcetecdDevice = dfuDevices[cmbDevices.SelectedIndex];
             RunProcessType = "Uploading";
             string appPath = Application.StartupPath;
             string app = $"{appPath}/dfu-util/dfu-util.exe";
-            string args = $"-a 0 -s 0x08000000:leave -D {txtFirmware.Tag?.ToString()} -S {selcetecdDevice.Serial}";
+            string args = $"-d 0x{selcetedDevice.VID.ToString("x")}:0x{selcetedDevice.PID.ToString("x")} -a 0 -s 0x08000000:leave -D {txtFirmware.Tag?.ToString()} -S {selcetedDevice.Serial}";
             Console.WriteLine(args);
             runProcesss(app, args);
         }
@@ -145,6 +186,11 @@ namespace DFU_Utility
         private void Process_Exited(object sender, EventArgs e)
         {
             IsRunningProcess = false;
+            if(RunProcessType == "Getting")
+            {
+                setStatusDevices();
+                
+            }
         }
 
         private void Process_OutputDataReceived(object sender, DataReceivedEventArgs e)
@@ -233,7 +279,7 @@ namespace DFU_Utility
                     int deviceId = 0;
                     if(vid == 0x483 && pid == 0xDF11) //STM32
                     {
-                        deviceId = (int)(int)DEVICEINDEX.STM32;                        
+                        deviceId = (int)(int)DEVICEINDEX.STM32;
                     }else if(vid == 0x28e9 && pid == 0x0189) //GD32
                     {
                         deviceId = (int)(int)DEVICEINDEX.GD32;
@@ -248,13 +294,7 @@ namespace DFU_Utility
                         int end_pos = data.IndexOf("\"", start_pos);
                         if (end_pos < 0) return;
                         dfuDevices[deviceId].Serial = data.Substring(start_pos, end_pos - start_pos);
-                    }
-                    if(vid == selectedVID && pid == selectedPID && dfuDevices[deviceId].Serial?.Length > 0)
-                    {
-                        dfuDevices[deviceId].isConnected = true;
-                        isDetected = true;
-                        ChangeAvaliableStatus();
-                    }
+                    }                    
                 }
             }catch(Exception)
             {
@@ -275,6 +315,8 @@ namespace DFU_Utility
             data = data.Trim(new char[] { ' ', '\n' });
             if (data.StartsWith("Warning:")) return;
             if (data.StartsWith("A   DFU")) return;
+            if (data.StartsWith("Error during")) return;
+            if (data.IndexOf("LIBUSB_ERROR_TIMEOUT") > 0) return;
             if(data.StartsWith("No DFU capable USB "))
             {
                 IsRunningProcess = false;
@@ -317,41 +359,50 @@ namespace DFU_Utility
             }
         }
 
-        public void DetectDevices()
-        {
-            selectedPID = cmbDevices.SelectedIndex == 0 ? 0x0189 : 0xDF11;
-            selectedVID = cmbDevices.SelectedIndex == 0 ? 0x28e9 : 0x0483;
-            bool detected = false;
-            foreach (UsbRegistry device in UsbDevice.AllDevices)
-            {
-                if (device.Vid == selectedVID && device.Pid == selectedPID)
-                {
-                    detected = true;
-                }
-            }
-            isDetected = detected;
-            ChangeAvaliableStatus();
-        }
+       
     
-
-        private void cmbDevices_SelectedIndexChanged(object sender, EventArgs e)
+        private void checkStatus()
         {
+            int detectedNum = 0;
+            ManagementObjectCollection collection;
+            using (var searcher = new ManagementObjectSearcher(@"SELECT * FROM Win32_PnPEntity where DeviceID Like ""USB%"""))
+                collection = searcher.Get();
+            bool isStm32 = false;
+            bool isGd32 = false;
+            foreach (var device in collection)
+            {
+                string name = device.GetPropertyValue("Name").ToString().ToLower();
+                if (name.IndexOf("bootloader") < 0) continue;
+                if(name.StartsWith("stm32"))
+                {
+                    isStm32 = true;
+                }else if(name.StartsWith("gd32"))
+                {
+                    isGd32 = true;
+                }
+                detectedNum++;
+            }
+            collection.Dispose();
+            if (detectedDevices == detectedNum) return;
+            detectedDevices = detectedNum;
+            dfuDevices[0].isConnected = isStm32;
+            dfuDevices[1].isConnected = isGd32;
+            if (!isStm32) dfuDevices[0].Serial = "";
+            if (!isGd32) dfuDevices[1].Serial = "";
             RunProcessType = "Getting";
-            selectedPID = cmbDevices.SelectedIndex == 1 ? 0x0189 : 0xDF11;
-            selectedVID = cmbDevices.SelectedIndex == 1 ? 0x28e9 : 0x0483;
-            isDetected = false;
-            ChangeAvaliableStatus();
             string appPath = Application.StartupPath;
             string app = $"{appPath}/dfu-util/dfu-util.exe";
             string args = $"-l";
             runProcesss(app, args);
         }
+       
 
         private void btnDriverInstaller_Click(object sender, EventArgs e)
         {
             string appPath = Application.StartupPath;
             string app = $"{appPath}/dfu-util/wdi-simple.exe";
-            string args = $"--vid {selectedVID.ToString("X")} --pid {selectedPID.ToString("X")} -t 0 -b";
+            DFUDevice dev = RDStm32.Checked ? dfuDevices[0] : dfuDevices[1];
+            string args = $"--vid {dev.VID.ToString("X")} --pid {dev.PID.ToString("X")} -t 0 -b";
             var process = new Process();// (app, args);
             try
             {
@@ -367,23 +418,53 @@ namespace DFU_Utility
         }
 
         private void timer1_Tick(object sender, EventArgs e)
-        {
-            //DetectDevices();
+                    {
+            if (IsRunningProcess) return;
+            checkStatus();
         }
 
         public void ChangeAvaliableStatus()
         {
-            bool status = IsRunningProcess ? false : isDetected;
+            bool isAnyDetected = false;
+            foreach(var dev in dfuDevices)
+            {
+                if(dev.type == DEVICEINDEX.STM32)
+                {
+                    lblStatusStm32.Text = dev.isConnected ? "Detected" : "Not Detected";
+                    lblStatusStm32.ForeColor = dev.isConnected ? Color.Lime : Color.Red;
+                    lblStatusStm32.Text += $"\nVID/PID:[0x{dev.VID.ToString("X")}:0x{dev.PID.ToString("X")}]\nSerial:{dev.Serial}";
+                }
+                else
+                {
+                    lblStatusGD32.Text = dev.isConnected ? "Detected" : "Not Detected";
+                    lblStatusGD32.ForeColor = dev.isConnected ? Color.Lime : Color.Red;
+                    lblStatusGD32.Text += $"\nVID/PID:[0x{dev.VID.ToString("X")}:0x{dev.PID.ToString("X")}]\nSerial:{dev.Serial}";
+                }
+                if(dev.isConnected)
+                {
+                    isAnyDetected = true;
+                }
+            }
             btnDriverInstaller.Enabled = !IsRunningProcess;
-            lblStatus.Text = isDetected? "Detected": "Not Detected";
-            lblStatus.ForeColor = isDetected ? Color.Lime: Color.Yellow;
-            btnProgram.Enabled = status && File.Exists(txtFirmware.Tag?.ToString());
-            btnProgram.ForeColor = status ? Color.Yellow : Color.Gray;
-            cmbDevices.Enabled = !IsRunningProcess;
+            btnProgram.Enabled = isAnyDetected && File.Exists(txtFirmware.Tag?.ToString());
+            btnProgram.ForeColor = isAnyDetected ? Color.Yellow : Color.Gray;
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            string appPath = Application.StartupPath;
+            string app = $"{appPath}/dfu-util/DeviceHelper.exe";
+            Process process = new Process();
+            process.EnableRaisingEvents = true;
+            process.StartInfo.FileName = app;
+            process.Start();
+            // Start the asynchronous read of the standard output stream.
+            
         }
     }
     public class DFUDevice
     {
+        public DEVICEINDEX type;
         public int VID;
         public int PID;
         public string Serial;
