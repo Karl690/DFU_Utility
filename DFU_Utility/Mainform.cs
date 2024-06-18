@@ -150,10 +150,11 @@ namespace DFU_Utility
                 process.StartInfo.RedirectStandardError = true;
                 process.ErrorDataReceived += new DataReceivedEventHandler(Process_OutputDataReceived);
                 process.Exited += Process_Exited;
+               
                 process.Start();
                 // Start the asynchronous read of the standard output stream.
-                //process.BeginOutputReadLine();
-                //process.BeginErrorReadLine();
+                process.BeginOutputReadLine();
+                process.BeginErrorReadLine();
                 //process.Start();
             } catch(Exception)
             {
