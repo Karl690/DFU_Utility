@@ -42,6 +42,10 @@ namespace DFU_Utility
             this.ButtonStm32 = new System.Windows.Forms.Button();
             this.ButtonGD32 = new System.Windows.Forms.Button();
             this.buttonInstallGd32Driver = new System.Windows.Forms.Button();
+            this.groupBoxGD32 = new System.Windows.Forms.GroupBox();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.groupBoxGD32.SuspendLayout();
+            this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // txtFirmware
@@ -84,7 +88,7 @@ namespace DFU_Utility
             // 
             this.buttonInstallSTM32Driver.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonInstallSTM32Driver.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonInstallSTM32Driver.Location = new System.Drawing.Point(12, 63);
+            this.buttonInstallSTM32Driver.Location = new System.Drawing.Point(0, 34);
             this.buttonInstallSTM32Driver.MaximumSize = new System.Drawing.Size(165, 100);
             this.buttonInstallSTM32Driver.MinimumSize = new System.Drawing.Size(165, 100);
             this.buttonInstallSTM32Driver.Name = "buttonInstallSTM32Driver";
@@ -104,7 +108,7 @@ namespace DFU_Utility
             // 
             this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label1.ForeColor = System.Drawing.Color.Yellow;
-            this.label1.Location = new System.Drawing.Point(12, 315);
+            this.label1.Location = new System.Drawing.Point(7, 356);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(350, 226);
             this.label1.TabIndex = 2;
@@ -140,7 +144,7 @@ namespace DFU_Utility
             // 
             // ButtonStm32
             // 
-            this.ButtonStm32.Location = new System.Drawing.Point(197, 63);
+            this.ButtonStm32.Location = new System.Drawing.Point(171, 28);
             this.ButtonStm32.MaximumSize = new System.Drawing.Size(165, 100);
             this.ButtonStm32.MinimumSize = new System.Drawing.Size(165, 100);
             this.ButtonStm32.Name = "ButtonStm32";
@@ -152,7 +156,7 @@ namespace DFU_Utility
             // 
             // ButtonGD32
             // 
-            this.ButtonGD32.Location = new System.Drawing.Point(197, 169);
+            this.ButtonGD32.Location = new System.Drawing.Point(165, 21);
             this.ButtonGD32.MaximumSize = new System.Drawing.Size(165, 100);
             this.ButtonGD32.MinimumSize = new System.Drawing.Size(165, 100);
             this.ButtonGD32.Name = "ButtonGD32";
@@ -166,7 +170,7 @@ namespace DFU_Utility
             // 
             this.buttonInstallGd32Driver.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonInstallGd32Driver.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonInstallGd32Driver.Location = new System.Drawing.Point(12, 169);
+            this.buttonInstallGd32Driver.Location = new System.Drawing.Point(6, 21);
             this.buttonInstallGd32Driver.MaximumSize = new System.Drawing.Size(165, 100);
             this.buttonInstallGd32Driver.MinimumSize = new System.Drawing.Size(165, 100);
             this.buttonInstallGd32Driver.Name = "buttonInstallGd32Driver";
@@ -176,18 +180,39 @@ namespace DFU_Utility
             this.buttonInstallGd32Driver.UseVisualStyleBackColor = true;
             this.buttonInstallGd32Driver.Click += new System.EventHandler(this.buttonInstallGd32Driver_Click);
             // 
+            // groupBoxGD32
+            // 
+            this.groupBoxGD32.Controls.Add(this.buttonInstallGd32Driver);
+            this.groupBoxGD32.Controls.Add(this.ButtonGD32);
+            this.groupBoxGD32.Location = new System.Drawing.Point(12, 203);
+            this.groupBoxGD32.Name = "groupBoxGD32";
+            this.groupBoxGD32.Size = new System.Drawing.Size(336, 150);
+            this.groupBoxGD32.TabIndex = 16;
+            this.groupBoxGD32.TabStop = false;
+            this.groupBoxGD32.Text = "groupBox1";
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.buttonInstallSTM32Driver);
+            this.groupBox2.Controls.Add(this.ButtonStm32);
+            this.groupBox2.ForeColor = System.Drawing.Color.Lime;
+            this.groupBox2.Location = new System.Drawing.Point(12, 63);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(345, 134);
+            this.groupBox2.TabIndex = 17;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "STM32";
+            // 
             // Mainform
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 30F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
             this.ClientSize = new System.Drawing.Size(1199, 589);
-            this.Controls.Add(this.buttonInstallGd32Driver);
-            this.Controls.Add(this.ButtonGD32);
-            this.Controls.Add(this.ButtonStm32);
+            this.Controls.Add(this.groupBox2);
+            this.Controls.Add(this.groupBoxGD32);
             this.Controls.Add(this.richTextBox1);
             this.Controls.Add(this.button1);
-            this.Controls.Add(this.buttonInstallSTM32Driver);
             this.Controls.Add(this.btnSelectDfuFile);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
@@ -197,6 +222,8 @@ namespace DFU_Utility
             this.Margin = new System.Windows.Forms.Padding(6, 7, 6, 7);
             this.Name = "Mainform";
             this.Text = "DFU_Utility";
+            this.groupBoxGD32.ResumeLayout(false);
+            this.groupBox2.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -214,6 +241,8 @@ namespace DFU_Utility
         private System.Windows.Forms.Button ButtonStm32;
         private System.Windows.Forms.Button ButtonGD32;
         public System.Windows.Forms.Button buttonInstallGd32Driver;
+        private System.Windows.Forms.GroupBox groupBoxGD32;
+        private System.Windows.Forms.GroupBox groupBox2;
     }
 }
 
