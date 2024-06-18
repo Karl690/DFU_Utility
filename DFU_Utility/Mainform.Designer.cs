@@ -32,18 +32,16 @@ namespace DFU_Utility
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Mainform));
             this.txtFirmware = new System.Windows.Forms.TextBox();
-            this.lblStatusStm32 = new System.Windows.Forms.Label();
             this.btnSelectDfuFile = new System.Windows.Forms.Button();
-            this.btnProgram = new System.Windows.Forms.Button();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
-            this.btnDriverInstaller = new System.Windows.Forms.Button();
+            this.buttonInstallSTM32Driver = new System.Windows.Forms.Button();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.lblStatusGD32 = new System.Windows.Forms.Label();
-            this.RDStm32 = new System.Windows.Forms.RadioButton();
-            this.RDGD32 = new System.Windows.Forms.RadioButton();
             this.button1 = new System.Windows.Forms.Button();
+            this.ButtonStm32 = new System.Windows.Forms.Button();
+            this.ButtonGD32 = new System.Windows.Forms.Button();
+            this.buttonInstallGd32Driver = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // txtFirmware
@@ -58,45 +56,18 @@ namespace DFU_Utility
             this.txtFirmware.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.txtFirmware.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.txtFirmware_MouseDoubleClick);
             // 
-            // lblStatusStm32
-            // 
-            this.lblStatusStm32.ForeColor = System.Drawing.Color.Red;
-            this.lblStatusStm32.Location = new System.Drawing.Point(110, 67);
-            this.lblStatusStm32.Name = "lblStatusStm32";
-            this.lblStatusStm32.Size = new System.Drawing.Size(242, 93);
-            this.lblStatusStm32.TabIndex = 2;
-            this.lblStatusStm32.Text = "No Detected";
-            // 
             // btnSelectDfuFile
             // 
             this.btnSelectDfuFile.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSelectDfuFile.Location = new System.Drawing.Point(192, 12);
-            this.btnSelectDfuFile.MaximumSize = new System.Drawing.Size(160, 45);
-            this.btnSelectDfuFile.MinimumSize = new System.Drawing.Size(160, 45);
+            this.btnSelectDfuFile.Location = new System.Drawing.Point(197, 12);
+            this.btnSelectDfuFile.MaximumSize = new System.Drawing.Size(165, 45);
+            this.btnSelectDfuFile.MinimumSize = new System.Drawing.Size(165, 45);
             this.btnSelectDfuFile.Name = "btnSelectDfuFile";
-            this.btnSelectDfuFile.Size = new System.Drawing.Size(160, 45);
+            this.btnSelectDfuFile.Size = new System.Drawing.Size(165, 45);
             this.btnSelectDfuFile.TabIndex = 10;
             this.btnSelectDfuFile.Text = "Select File";
             this.btnSelectDfuFile.UseVisualStyleBackColor = true;
             this.btnSelectDfuFile.Click += new System.EventHandler(this.btnSelectDfuFile_Click);
-            // 
-            // btnProgram
-            // 
-            this.btnProgram.AccessibleRole = System.Windows.Forms.AccessibleRole.None;
-            this.btnProgram.FlatAppearance.BorderColor = System.Drawing.Color.Yellow;
-            this.btnProgram.FlatAppearance.BorderSize = 3;
-            this.btnProgram.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnProgram.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnProgram.ForeColor = System.Drawing.Color.Yellow;
-            this.btnProgram.Location = new System.Drawing.Point(12, 12);
-            this.btnProgram.MaximumSize = new System.Drawing.Size(160, 45);
-            this.btnProgram.MinimumSize = new System.Drawing.Size(160, 45);
-            this.btnProgram.Name = "btnProgram";
-            this.btnProgram.Size = new System.Drawing.Size(160, 45);
-            this.btnProgram.TabIndex = 9;
-            this.btnProgram.Text = "Program";
-            this.btnProgram.UseVisualStyleBackColor = true;
-            this.btnProgram.Click += new System.EventHandler(this.btnProgram_Click);
             // 
             // richTextBox1
             // 
@@ -109,19 +80,19 @@ namespace DFU_Utility
             this.richTextBox1.TabIndex = 11;
             this.richTextBox1.Text = "";
             // 
-            // btnDriverInstaller
+            // buttonInstallSTM32Driver
             // 
-            this.btnDriverInstaller.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnDriverInstaller.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnDriverInstaller.Location = new System.Drawing.Point(12, 532);
-            this.btnDriverInstaller.MaximumSize = new System.Drawing.Size(360, 45);
-            this.btnDriverInstaller.MinimumSize = new System.Drawing.Size(160, 45);
-            this.btnDriverInstaller.Name = "btnDriverInstaller";
-            this.btnDriverInstaller.Size = new System.Drawing.Size(340, 45);
-            this.btnDriverInstaller.TabIndex = 10;
-            this.btnDriverInstaller.Text = "WinUSB Driver Install";
-            this.btnDriverInstaller.UseVisualStyleBackColor = true;
-            this.btnDriverInstaller.Click += new System.EventHandler(this.btnDriverInstaller_Click);
+            this.buttonInstallSTM32Driver.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonInstallSTM32Driver.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonInstallSTM32Driver.Location = new System.Drawing.Point(12, 63);
+            this.buttonInstallSTM32Driver.MaximumSize = new System.Drawing.Size(165, 100);
+            this.buttonInstallSTM32Driver.MinimumSize = new System.Drawing.Size(165, 100);
+            this.buttonInstallSTM32Driver.Name = "buttonInstallSTM32Driver";
+            this.buttonInstallSTM32Driver.Size = new System.Drawing.Size(165, 100);
+            this.buttonInstallSTM32Driver.TabIndex = 10;
+            this.buttonInstallSTM32Driver.Text = "Install\r\nSTM32\r\nDriver";
+            this.buttonInstallSTM32Driver.UseVisualStyleBackColor = true;
+            this.buttonInstallSTM32Driver.Click += new System.EventHandler(this.btnDriverInstaller_Click);
             // 
             // timer1
             // 
@@ -133,69 +104,77 @@ namespace DFU_Utility
             // 
             this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label1.ForeColor = System.Drawing.Color.Yellow;
-            this.label1.Location = new System.Drawing.Point(7, 369);
+            this.label1.Location = new System.Drawing.Point(12, 315);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(350, 103);
+            this.label1.Size = new System.Drawing.Size(350, 226);
             this.label1.TabIndex = 2;
-            this.label1.Text = "if GD or STM dfu device is not detected, please install WinUSB driver";
+            this.label1.Text = "if dfu device is not detected,\r\nplease put device in DFU mode,\r\npress both reset " +
+    "and DFU button.\r\nrelease reset button,\r\nthen release dfu button.\r\nif this does n" +
+    "ot work \r\nplease install USB driver";
             // 
             // label2
             // 
             this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label2.ForeColor = System.Drawing.Color.Yellow;
-            this.label2.Location = new System.Drawing.Point(7, 266);
+            this.label2.Location = new System.Drawing.Point(851, 481);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(350, 103);
             this.label2.TabIndex = 2;
             this.label2.Text = "Afert uploading the firmware. please toggle the reset button on board to restart " +
     "the device.";
             // 
-            // lblStatusGD32
-            // 
-            this.lblStatusGD32.ForeColor = System.Drawing.Color.Red;
-            this.lblStatusGD32.Location = new System.Drawing.Point(110, 160);
-            this.lblStatusGD32.Name = "lblStatusGD32";
-            this.lblStatusGD32.Size = new System.Drawing.Size(242, 106);
-            this.lblStatusGD32.TabIndex = 2;
-            this.lblStatusGD32.Text = "No Detected";
-            // 
-            // RDStm32
-            // 
-            this.RDStm32.AutoSize = true;
-            this.RDStm32.ForeColor = System.Drawing.Color.White;
-            this.RDStm32.Location = new System.Drawing.Point(17, 67);
-            this.RDStm32.Name = "RDStm32";
-            this.RDStm32.Size = new System.Drawing.Size(94, 34);
-            this.RDStm32.TabIndex = 12;
-            this.RDStm32.TabStop = true;
-            this.RDStm32.Text = "STM32";
-            this.RDStm32.UseVisualStyleBackColor = true;
-            // 
-            // RDGD32
-            // 
-            this.RDGD32.AutoSize = true;
-            this.RDGD32.ForeColor = System.Drawing.Color.White;
-            this.RDGD32.Location = new System.Drawing.Point(17, 158);
-            this.RDGD32.Name = "RDGD32";
-            this.RDGD32.Size = new System.Drawing.Size(82, 34);
-            this.RDGD32.TabIndex = 12;
-            this.RDGD32.TabStop = true;
-            this.RDGD32.Text = "GD32";
-            this.RDGD32.UseVisualStyleBackColor = true;
-            // 
             // button1
             // 
             this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.Location = new System.Drawing.Point(12, 481);
-            this.button1.MaximumSize = new System.Drawing.Size(360, 45);
-            this.button1.MinimumSize = new System.Drawing.Size(160, 45);
+            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button1.Location = new System.Drawing.Point(12, 12);
+            this.button1.MaximumSize = new System.Drawing.Size(165, 45);
+            this.button1.MinimumSize = new System.Drawing.Size(165, 45);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(340, 45);
+            this.button1.Size = new System.Drawing.Size(165, 45);
             this.button1.TabIndex = 10;
             this.button1.Text = "Device Helper";
+            this.button1.UseCompatibleTextRendering = true;
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // ButtonStm32
+            // 
+            this.ButtonStm32.Location = new System.Drawing.Point(197, 63);
+            this.ButtonStm32.MaximumSize = new System.Drawing.Size(165, 100);
+            this.ButtonStm32.MinimumSize = new System.Drawing.Size(165, 100);
+            this.ButtonStm32.Name = "ButtonStm32";
+            this.ButtonStm32.Size = new System.Drawing.Size(165, 100);
+            this.ButtonStm32.TabIndex = 13;
+            this.ButtonStm32.Text = "STM32 Upload";
+            this.ButtonStm32.UseVisualStyleBackColor = true;
+            this.ButtonStm32.Click += new System.EventHandler(this.ButtonStm32_Click);
+            // 
+            // ButtonGD32
+            // 
+            this.ButtonGD32.Location = new System.Drawing.Point(197, 169);
+            this.ButtonGD32.MaximumSize = new System.Drawing.Size(165, 100);
+            this.ButtonGD32.MinimumSize = new System.Drawing.Size(165, 100);
+            this.ButtonGD32.Name = "ButtonGD32";
+            this.ButtonGD32.Size = new System.Drawing.Size(165, 100);
+            this.ButtonGD32.TabIndex = 14;
+            this.ButtonGD32.Text = "GD32 Upload";
+            this.ButtonGD32.UseVisualStyleBackColor = true;
+            this.ButtonGD32.Click += new System.EventHandler(this.ButtonGD32_Click);
+            // 
+            // buttonInstallGd32Driver
+            // 
+            this.buttonInstallGd32Driver.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonInstallGd32Driver.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonInstallGd32Driver.Location = new System.Drawing.Point(12, 169);
+            this.buttonInstallGd32Driver.MaximumSize = new System.Drawing.Size(165, 100);
+            this.buttonInstallGd32Driver.MinimumSize = new System.Drawing.Size(165, 100);
+            this.buttonInstallGd32Driver.Name = "buttonInstallGd32Driver";
+            this.buttonInstallGd32Driver.Size = new System.Drawing.Size(165, 100);
+            this.buttonInstallGd32Driver.TabIndex = 15;
+            this.buttonInstallGd32Driver.Text = "Install\r\nGD32\r\nDriver";
+            this.buttonInstallGd32Driver.UseVisualStyleBackColor = true;
+            this.buttonInstallGd32Driver.Click += new System.EventHandler(this.buttonInstallGd32Driver_Click);
             // 
             // Mainform
             // 
@@ -203,17 +182,15 @@ namespace DFU_Utility
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
             this.ClientSize = new System.Drawing.Size(1199, 589);
-            this.Controls.Add(this.RDGD32);
-            this.Controls.Add(this.RDStm32);
+            this.Controls.Add(this.buttonInstallGd32Driver);
+            this.Controls.Add(this.ButtonGD32);
+            this.Controls.Add(this.ButtonStm32);
             this.Controls.Add(this.richTextBox1);
             this.Controls.Add(this.button1);
-            this.Controls.Add(this.btnDriverInstaller);
+            this.Controls.Add(this.buttonInstallSTM32Driver);
             this.Controls.Add(this.btnSelectDfuFile);
-            this.Controls.Add(this.btnProgram);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.lblStatusGD32);
-            this.Controls.Add(this.lblStatusStm32);
             this.Controls.Add(this.txtFirmware);
             this.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -227,18 +204,16 @@ namespace DFU_Utility
 
         #endregion
         private System.Windows.Forms.TextBox txtFirmware;
-        private System.Windows.Forms.Label lblStatusStm32;
         public System.Windows.Forms.Button btnSelectDfuFile;
-        private System.Windows.Forms.Button btnProgram;
         private System.Windows.Forms.RichTextBox richTextBox1;
-        public System.Windows.Forms.Button btnDriverInstaller;
+        public System.Windows.Forms.Button buttonInstallSTM32Driver;
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label lblStatusGD32;
-        private System.Windows.Forms.RadioButton RDStm32;
-        private System.Windows.Forms.RadioButton RDGD32;
         public System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button ButtonStm32;
+        private System.Windows.Forms.Button ButtonGD32;
+        public System.Windows.Forms.Button buttonInstallGd32Driver;
     }
 }
 

@@ -37,8 +37,8 @@ namespace DFU_Utility
                 txtFirmware.Tag = path;
             }
 
-            btnProgram.Enabled = false;
-
+            ButtonGD32.Enabled = false;
+            ButtonStm32.Enabled = false;
             DFUDevice stm32 = new DFUDevice();
             stm32.type = DEVICEINDEX.STM32;
             stm32.VID = 0x0483; stm32.PID = 0xDF11; stm32.Serial = ""; stm32.isConnected = false; stm32.Type = "STM32";
@@ -49,7 +49,6 @@ namespace DFU_Utility
             dfuDevices[(int)DEVICEINDEX.STM32] = stm32;
             dfuDevices[(int)DEVICEINDEX.GD32] = gd32;
             checkingDfuDevices = (DFUDevice[])dfuDevices.Clone();
-            RDStm32.Checked = true;
             
             this.Text = "DFU_Utility v" + RevisionHistory.GetCurrentVersion();
             
@@ -129,10 +128,6 @@ namespace DFU_Utility
             SelectSourceFile();
         }
 
-        private void btnProgram_Click(object sender, EventArgs e)
-        {
-            uploadFirmware();
-        }
         public void runProcesss(string app, string args)
         {
             IsRunningProcess = true;
@@ -162,14 +157,14 @@ namespace DFU_Utility
             }
         }
 
-        private void uploadFirmware()
+        private void uploadFirmware(bool Stm32)
         {
             if(!File.Exists(txtFirmware.Tag?.ToString()))
             {
                 MessageBox.Show("Please choose the firmware file(*.DFU).");
                 return;
             }
-            DFUDevice selcetedDevice = RDStm32.Checked ? dfuDevices[0] : dfuDevices[1];
+            DFUDevice selcetedDevice = Stm32 ? dfuDevices[0] : dfuDevices[1];
 
             if (!selcetedDevice.isConnected)
             {
@@ -402,7 +397,7 @@ namespace DFU_Utility
         {
             string appPath = Application.StartupPath;
             string app = $"{appPath}/dfu-util/wdi-simple.exe";
-            DFUDevice dev = RDStm32.Checked ? dfuDevices[0] : dfuDevices[1];
+            DFUDevice dev = dfuDevices[0];
             string args = $"--vid {dev.VID.ToString("X")} --pid {dev.PID.ToString("X")} -t 0 -b";
             var process = new Process();// (app, args);
             try
@@ -431,24 +426,24 @@ namespace DFU_Utility
             {
                 if(dev.type == DEVICEINDEX.STM32)
                 {
-                    lblStatusStm32.Text = dev.isConnected ? "Detected" : "Not Detected";
-                    lblStatusStm32.ForeColor = dev.isConnected ? Color.Lime : Color.Red;
-                    lblStatusStm32.Text += $"\nVID/PID:[0x{dev.VID.ToString("X")}:0x{dev.PID.ToString("X")}]\nSerial:{dev.Serial}";
+                    ButtonStm32.Text = dev.isConnected ? "Detected" : "Not Detected";
+                    ButtonStm32.ForeColor = dev.isConnected ? Color.Lime : Color.Red;
+                    ButtonStm32.Text += $"\nVID/PID:[0x{dev.VID.ToString("X")}:0x{dev.PID.ToString("X")}]\nSerial:{dev.Serial}";
                 }
                 else
                 {
-                    lblStatusGD32.Text = dev.isConnected ? "Detected" : "Not Detected";
-                    lblStatusGD32.ForeColor = dev.isConnected ? Color.Lime : Color.Red;
-                    lblStatusGD32.Text += $"\nVID/PID:[0x{dev.VID.ToString("X")}:0x{dev.PID.ToString("X")}]\nSerial:{dev.Serial}";
+                    ButtonGD32.Text = dev.isConnected ? "Detected" : "Not Detected";
+                    ButtonGD32.ForeColor = dev.isConnected ? Color.Lime : Color.Red;
+                    ButtonGD32.Text += $"\nVID/PID:[0x{dev.VID.ToString("X")}:0x{dev.PID.ToString("X")}]\nSerial:{dev.Serial}";
                 }
                 if(dev.isConnected)
                 {
                     isAnyDetected = true;
                 }
             }
-            btnDriverInstaller.Enabled = !IsRunningProcess;
-            btnProgram.Enabled = isAnyDetected && File.Exists(txtFirmware.Tag?.ToString());
-            btnProgram.ForeColor = isAnyDetected ? Color.Yellow : Color.Gray;
+            buttonInstallSTM32Driver.Enabled = !IsRunningProcess;
+            //btnProgram.Enabled = isAnyDetected && File.Exists(txtFirmware.Tag?.ToString());
+            //btnProgram.ForeColor = isAnyDetected ? Color.Yellow : Color.Gray;
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -461,6 +456,36 @@ namespace DFU_Utility
             process.Start();
             // Start the asynchronous read of the standard output stream.
             
+        }
+
+        private void ButtonStm32_Click(object sender, EventArgs e)
+        {
+            uploadFirmware(true);
+        }
+
+        private void ButtonGD32_Click(object sender, EventArgs e)
+        {
+            uploadFirmware(false);
+        }
+
+        private void buttonInstallGd32Driver_Click(object sender, EventArgs e)
+        {
+            string appPath = Application.StartupPath;
+            string app = $"{appPath}/dfu-util/wdi-simple.exe";
+            DFUDevice dev = dfuDevices[1];
+            string args = $"--vid {dev.VID.ToString("X")} --pid {dev.PID.ToString("X")} -t 0 -b";
+            var process = new Process();// (app, args);
+            try
+            {
+                process.StartInfo.FileName = app;
+                process.StartInfo.Arguments = args;
+                process.Start();
+            }
+            catch (Exception)
+            {
+
+            }
+
         }
     }
     public class DFUDevice
