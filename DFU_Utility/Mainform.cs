@@ -20,7 +20,7 @@ namespace DFU_Utility
     public partial class Mainform : Form
     {
         bool IsRunningProcess = false;
-        int detectedDevices = 0;
+        int detectedDevices = -1;
         string RunProcessType = ""; //Uploading, Geting
         public DFUDevice[] dfuDevices = new DFUDevice[2];
         public DFUDevice[] checkingDfuDevices;
