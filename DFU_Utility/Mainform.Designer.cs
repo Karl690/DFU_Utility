@@ -46,6 +46,7 @@ namespace DFU_Utility
             this.groupBoxSTM = new System.Windows.Forms.GroupBox();
             this.pictureBoxScreen = new System.Windows.Forms.PictureBox();
             this.btnPictureShowHide = new System.Windows.Forms.Button();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.groupBoxGD.SuspendLayout();
             this.groupBoxSTM.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxScreen)).BeginInit();
@@ -73,6 +74,8 @@ namespace DFU_Utility
             this.btnSelectDfuFile.Size = new System.Drawing.Size(165, 45);
             this.btnSelectDfuFile.TabIndex = 10;
             this.btnSelectDfuFile.Text = "Select File";
+            this.toolTip1.SetToolTip(this.btnSelectDfuFile, "This will open a file dialog and \r\nallow you to navigate to the File\r\nyou will ne" +
+        "ed for uploading to your\r\ndevice.\r\n");
             this.btnSelectDfuFile.UseVisualStyleBackColor = true;
             this.btnSelectDfuFile.Click += new System.EventHandler(this.btnSelectDfuFile_Click);
             // 
@@ -98,6 +101,7 @@ namespace DFU_Utility
             this.buttonInstallSTM32Driver.Size = new System.Drawing.Size(165, 100);
             this.buttonInstallSTM32Driver.TabIndex = 10;
             this.buttonInstallSTM32Driver.Text = "Install\r\nSTM32\r\nDriver";
+            this.toolTip1.SetToolTip(this.buttonInstallSTM32Driver, resources.GetString("buttonInstallSTM32Driver.ToolTip"));
             this.buttonInstallSTM32Driver.UseVisualStyleBackColor = true;
             this.buttonInstallSTM32Driver.Click += new System.EventHandler(this.btnDriverInstaller_Click);
             // 
@@ -111,13 +115,13 @@ namespace DFU_Utility
             // 
             this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label1.ForeColor = System.Drawing.Color.Yellow;
-            this.label1.Location = new System.Drawing.Point(7, 356);
+            this.label1.Location = new System.Drawing.Point(7, 339);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(350, 226);
+            this.label1.Size = new System.Drawing.Size(350, 245);
             this.label1.TabIndex = 2;
-            this.label1.Text = "if dfu device is not detected,\r\nplease put device in DFU mode,\r\npress both reset " +
-    "and DFU button.\r\nrelease reset button,\r\nthen release dfu button.\r\nif this does n" +
-    "ot work \r\nplease install USB driver";
+            this.label1.Text = "1. put device in DFU mode;\r\npress both reset and DFU button.\r\nrelease reset butto" +
+    "n,\r\nthen release dfu button.\r\nif this does not work \r\nplease install USB driver." +
+    "\r\n2. select file.\r\n3.Upload.";
             // 
             // label2
             // 
@@ -140,6 +144,8 @@ namespace DFU_Utility
             this.button1.Size = new System.Drawing.Size(165, 45);
             this.button1.TabIndex = 10;
             this.button1.Text = "Device Helper";
+            this.toolTip1.SetToolTip(this.button1, "this button will open a view of all usb devices\r\non this computer, this is helpfu" +
+        "l with debugging\r\nthe dfu to usb cable connection.");
             this.button1.UseCompatibleTextRendering = true;
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
@@ -153,6 +159,9 @@ namespace DFU_Utility
             this.ButtonStm32.Size = new System.Drawing.Size(165, 100);
             this.ButtonStm32.TabIndex = 13;
             this.ButtonStm32.Text = "STM32 Upload";
+            this.toolTip1.SetToolTip(this.ButtonStm32, "when this button is Enabled, ( green text)\r\nit will erase your module and then up" +
+        "load the\r\ncode from the selected file.\r\nyou must FIRST Select the desired .bin f" +
+        "ile.");
             this.ButtonStm32.UseVisualStyleBackColor = true;
             this.ButtonStm32.Click += new System.EventHandler(this.ButtonStm32_Click);
             // 
@@ -165,6 +174,7 @@ namespace DFU_Utility
             this.ButtonGD32.Size = new System.Drawing.Size(165, 100);
             this.ButtonGD32.TabIndex = 14;
             this.ButtonGD32.Text = "GD32 Upload";
+            this.toolTip1.SetToolTip(this.ButtonGD32, "when this button is Enabled, ( green text)");
             this.ButtonGD32.UseVisualStyleBackColor = true;
             this.ButtonGD32.Click += new System.EventHandler(this.ButtonGD32_Click);
             // 
@@ -179,6 +189,7 @@ namespace DFU_Utility
             this.buttonInstallGd32Driver.Size = new System.Drawing.Size(165, 100);
             this.buttonInstallGd32Driver.TabIndex = 15;
             this.buttonInstallGd32Driver.Text = "Install\r\nGD32\r\nDriver";
+            this.toolTip1.SetToolTip(this.buttonInstallGd32Driver, resources.GetString("buttonInstallGd32Driver.ToolTip"));
             this.buttonInstallGd32Driver.UseVisualStyleBackColor = true;
             this.buttonInstallGd32Driver.Click += new System.EventHandler(this.buttonInstallGd32Driver_Click);
             // 
@@ -187,7 +198,7 @@ namespace DFU_Utility
             this.groupBoxGD.Controls.Add(this.buttonInstallGd32Driver);
             this.groupBoxGD.Controls.Add(this.ButtonGD32);
             this.groupBoxGD.ForeColor = System.Drawing.Color.Lime;
-            this.groupBoxGD.Location = new System.Drawing.Point(12, 203);
+            this.groupBoxGD.Location = new System.Drawing.Point(12, 184);
             this.groupBoxGD.Name = "groupBoxGD";
             this.groupBoxGD.Size = new System.Drawing.Size(345, 150);
             this.groupBoxGD.TabIndex = 16;
@@ -199,7 +210,7 @@ namespace DFU_Utility
             this.groupBoxSTM.Controls.Add(this.buttonInstallSTM32Driver);
             this.groupBoxSTM.Controls.Add(this.ButtonStm32);
             this.groupBoxSTM.ForeColor = System.Drawing.Color.Lime;
-            this.groupBoxSTM.Location = new System.Drawing.Point(12, 63);
+            this.groupBoxSTM.Location = new System.Drawing.Point(12, 51);
             this.groupBoxSTM.Name = "groupBoxSTM";
             this.groupBoxSTM.Size = new System.Drawing.Size(345, 134);
             this.groupBoxSTM.TabIndex = 17;
@@ -215,6 +226,7 @@ namespace DFU_Utility
             this.pictureBoxScreen.Size = new System.Drawing.Size(453, 481);
             this.pictureBoxScreen.TabIndex = 18;
             this.pictureBoxScreen.TabStop = false;
+            this.toolTip1.SetToolTip(this.pictureBoxScreen, resources.GetString("pictureBoxScreen.ToolTip"));
             // 
             // btnPictureShowHide
             // 
@@ -225,6 +237,7 @@ namespace DFU_Utility
             this.btnPictureShowHide.Size = new System.Drawing.Size(38, 27);
             this.btnPictureShowHide.TabIndex = 19;
             this.btnPictureShowHide.Text = "<<";
+            this.toolTip1.SetToolTip(this.btnPictureShowHide, "This will allow you to enlarge the\r\nSTATUS text box.");
             this.btnPictureShowHide.UseVisualStyleBackColor = true;
             this.btnPictureShowHide.Click += new System.EventHandler(this.btnPictureShowHide_Click);
             // 
@@ -273,6 +286,7 @@ namespace DFU_Utility
         private System.Windows.Forms.GroupBox groupBoxSTM;
         private System.Windows.Forms.PictureBox pictureBoxScreen;
         private System.Windows.Forms.Button btnPictureShowHide;
+        private System.Windows.Forms.ToolTip toolTip1;
     }
 }
 
