@@ -37,8 +37,6 @@ namespace DFU_Utility
                 txtFirmware.Tag = path;
             }
 
-            ButtonGD32.Enabled = false;
-            ButtonStm32.Enabled = false;
             DFUDevice stm32 = new DFUDevice();
             stm32.type = DEVICEINDEX.STM32;
             stm32.VID = 0x0483; stm32.PID = 0xDF11; stm32.Serial = ""; stm32.isConnected = false; stm32.Type = "STM32";
@@ -91,7 +89,12 @@ namespace DFU_Utility
 
         public string GetDefaultDirectoryPathOfSourceFile()
         {
-            string sourceFileDirectoryPath = Application.StartupPath + @"\bin\Firmware\";
+            string sourceFileDirectoryPath = Properties.Settings.Default.firwarePath;
+            if (Properties.Settings.Default.firwarePath != "")
+            {
+                sourceFileDirectoryPath = Path.GetDirectoryName(Properties.Settings.Default.firwarePath);
+
+            }
             if (!Directory.Exists(sourceFileDirectoryPath)) sourceFileDirectoryPath = @"C:";
             return sourceFileDirectoryPath;
         }
@@ -123,7 +126,6 @@ namespace DFU_Utility
 
         public void runProcesss(string app, string args)
         {
-            IsRunningProcess = true;
             try
             {
                 Process process = new Process();
@@ -152,9 +154,14 @@ namespace DFU_Utility
 
         private void uploadFirmware(bool Stm32)
         {
+            if(IsRunningProcess)
+            {
+                MessageBox.Show("it is downloading now.");
+                return;
+            }
             if(!File.Exists(txtFirmware.Tag?.ToString()))
             {
-                MessageBox.Show("Please choose the firmware file(*.DFU).");
+                MessageBox.Show("Please choose the firmware file(*.bin).");
                 return;
             }
             DFUDevice selcetedDevice = Stm32 ? dfuDevices[0] : dfuDevices[1];
@@ -165,9 +172,12 @@ namespace DFU_Utility
                 return;
             }
             RunProcessType = "Uploading";
+            IsRunningProcess = true;
+
             string appPath = Application.StartupPath;
             string app = $"{appPath}/dfu-util/dfu-util.exe";
-            string args = $"-d 0x{selcetedDevice.VID.ToString("x")}:0x{selcetedDevice.PID.ToString("x")} -a 0 -s 0x08000000:leave -D {txtFirmware.Tag?.ToString()} -S {selcetedDevice.Serial}";
+            string args = $"-d 0x{selcetedDevice.VID.ToString("x")}:0x{selcetedDevice.PID.ToString("x")} -a 0 -s 0x08000000:leave -D {txtFirmware.Tag?.ToString()}";
+            args += $" -S {selcetedDevice.Serial}";
             Console.WriteLine(args);
             runProcesss(app, args);
         }
@@ -304,8 +314,16 @@ namespace DFU_Utility
             data = data.Trim(new char[] { ' ', '\n' });
             if (data.StartsWith("Warning:")) return;
             if (data.StartsWith("A   DFU")) return;
-            if (data.StartsWith("Error during")) return;
-            if (data.IndexOf("LIBUSB_ERROR_TIMEOUT") > 0) return;
+            if (data.StartsWith("Error during"))
+            {
+                IsRunningProcess = false;
+                return;
+            }
+            if (data.IndexOf("LIBUSB_ERROR_TIMEOUT") > 0)
+            {
+                IsRunningProcess = false;
+                return;
+            }
             if(data.StartsWith("No DFU capable USB "))
             {
                 IsRunningProcess = false;
@@ -386,8 +404,9 @@ namespace DFU_Utility
         }
        
 
-        private void btnDriverInstaller_Click(object sender, EventArgs e)
+        private void btnDriverStm32Installer_Click(object sender, EventArgs e)
         {
+            if(dfuDevices[0].isConnected) return;
             string appPath = Application.StartupPath;
             string app = $"{appPath}/dfu-util/wdi-simple.exe";
             DFUDevice dev = dfuDevices[0];
@@ -421,21 +440,47 @@ namespace DFU_Utility
                 {
                     groupBoxSTM.Text = $"STM32 {(dev.isConnected ? "Detected" : "Not Detected")}";
                     groupBoxSTM.ForeColor = dev.isConnected ? Color.Lime : Color.Red;
-                    ButtonStm32.Enabled = IsRunningProcess ? false : dev.isConnected;
+                    if (dev.isConnected)
+                    {
+                        buttonInstallSTM32Driver.BackColor = buttonInstallSTM32Driver.FlatAppearance.MouseDownBackColor = buttonInstallSTM32Driver.FlatAppearance.MouseOverBackColor = Color.Gray;
+                        buttonInstallSTM32Driver.ForeColor = Color.Black;
+                        ButtonStm32.BackColor = ButtonStm32.FlatAppearance.MouseDownBackColor = ButtonStm32.FlatAppearance.MouseOverBackColor = Color.Black;
+                        ButtonStm32.ForeColor = Color.Lime;
+                    }
+                    else
+                    {
+                        buttonInstallSTM32Driver.BackColor = buttonInstallSTM32Driver.FlatAppearance.MouseDownBackColor = buttonInstallSTM32Driver.FlatAppearance.MouseOverBackColor = Color.Black;
+                        buttonInstallSTM32Driver.ForeColor = Color.Red;
+                        ButtonStm32.BackColor = ButtonStm32.FlatAppearance.MouseDownBackColor = ButtonStm32.FlatAppearance.MouseOverBackColor = Color.Gray;
+                        ButtonStm32.ForeColor = Color.Black;
+                    }
                 }
                 else
                 {
                     groupBoxGD.Text = $"GD32 {(dev.isConnected ? "Detected" : "Not Detected")}";
                     groupBoxGD.ForeColor = dev.isConnected ? Color.Lime : Color.Red;
-                    ButtonGD32.Enabled = IsRunningProcess ? false : dev.isConnected;
+                    if (dev.isConnected)
+                    {
+                        buttonInstallGd32Driver.BackColor = buttonInstallGd32Driver.FlatAppearance.MouseDownBackColor = buttonInstallGd32Driver.FlatAppearance.MouseOverBackColor = Color.Gray;
+                        buttonInstallGd32Driver.ForeColor = Color.Black;
+                        ButtonGD32.BackColor = ButtonGD32.FlatAppearance.MouseDownBackColor = ButtonGD32.FlatAppearance.MouseOverBackColor = Color.Black;
+                        ButtonGD32.ForeColor = Color.Lime;
+                    }
+                    else
+                    {
+                        buttonInstallGd32Driver.BackColor = buttonInstallGd32Driver.FlatAppearance.MouseDownBackColor = buttonInstallGd32Driver.FlatAppearance.MouseOverBackColor = Color.Black;
+                        buttonInstallGd32Driver.ForeColor = Color.Red;
+                        ButtonGD32.BackColor = ButtonGD32.FlatAppearance.MouseDownBackColor = ButtonGD32.FlatAppearance.MouseOverBackColor = Color.Gray;
+                        ButtonGD32.ForeColor = Color.Black;
+                    }
                 }
                 if(dev.isConnected)
                 {
                     isAnyDetected = true;
                 }
             }
-            buttonInstallSTM32Driver.Enabled = !IsRunningProcess;
-            buttonInstallGd32Driver.Enabled = !IsRunningProcess;
+            // buttonInstallSTM32Driver.Enabled = !IsRunningProcess;
+            //buttonInstallGd32Driver.Enabled = !IsRunningProcess;
             //btnProgram.Enabled = isAnyDetected && File.Exists(txtFirmware.Tag?.ToString());
             //btnProgram.ForeColor = isAnyDetected ? Color.Yellow : Color.Gray;
         }
@@ -454,16 +499,21 @@ namespace DFU_Utility
 
         private void ButtonStm32_Click(object sender, EventArgs e)
         {
+            if (IsRunningProcess) return;
+            if (!dfuDevices[0].isConnected) return;
             uploadFirmware(true);
         }
 
         private void ButtonGD32_Click(object sender, EventArgs e)
         {
+            if (IsRunningProcess) return;
+            if (!dfuDevices[1].isConnected) return;
             uploadFirmware(false);
         }
 
         private void buttonInstallGd32Driver_Click(object sender, EventArgs e)
         {
+            if (dfuDevices[1].isConnected) return;
             string appPath = Application.StartupPath;
             string app = $"{appPath}/dfu-util/wdi-simple.exe";
             DFUDevice dev = dfuDevices[1];

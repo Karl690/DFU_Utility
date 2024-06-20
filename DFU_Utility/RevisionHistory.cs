@@ -10,8 +10,8 @@ namespace DFU_Utility
     {
         static public string RevisionHeader = @"DFU_Utility";
         static public string MajorStep = "1";
-        static public string MinorStep = "0.04";
-        static public string RevisionDate = @"6/19/2024";
+        static public string MinorStep = "0.05";
+        static public string RevisionDate = @"6/20/2024";
 
         static public string GetCurrentVersion()
         {

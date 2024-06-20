@@ -93,7 +93,12 @@ namespace DFU_Utility
             // buttonInstallSTM32Driver
             // 
             this.buttonInstallSTM32Driver.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonInstallSTM32Driver.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.buttonInstallSTM32Driver.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Black;
+            this.buttonInstallSTM32Driver.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Black;
+            this.buttonInstallSTM32Driver.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonInstallSTM32Driver.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonInstallSTM32Driver.ForeColor = System.Drawing.Color.Gray;
             this.buttonInstallSTM32Driver.Location = new System.Drawing.Point(5, 28);
             this.buttonInstallSTM32Driver.MaximumSize = new System.Drawing.Size(165, 100);
             this.buttonInstallSTM32Driver.MinimumSize = new System.Drawing.Size(165, 100);
@@ -102,8 +107,8 @@ namespace DFU_Utility
             this.buttonInstallSTM32Driver.TabIndex = 10;
             this.buttonInstallSTM32Driver.Text = "Install\r\nSTM32\r\nDriver";
             this.toolTip1.SetToolTip(this.buttonInstallSTM32Driver, resources.GetString("buttonInstallSTM32Driver.ToolTip"));
-            this.buttonInstallSTM32Driver.UseVisualStyleBackColor = true;
-            this.buttonInstallSTM32Driver.Click += new System.EventHandler(this.btnDriverInstaller_Click);
+            this.buttonInstallSTM32Driver.UseVisualStyleBackColor = false;
+            this.buttonInstallSTM32Driver.Click += new System.EventHandler(this.btnDriverStm32Installer_Click);
             // 
             // timer1
             // 
@@ -152,6 +157,12 @@ namespace DFU_Utility
             // 
             // ButtonStm32
             // 
+            this.ButtonStm32.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.ButtonStm32.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Black;
+            this.ButtonStm32.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Black;
+            this.ButtonStm32.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ButtonStm32.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold);
+            this.ButtonStm32.ForeColor = System.Drawing.Color.Gray;
             this.ButtonStm32.Location = new System.Drawing.Point(175, 28);
             this.ButtonStm32.MaximumSize = new System.Drawing.Size(165, 100);
             this.ButtonStm32.MinimumSize = new System.Drawing.Size(165, 100);
@@ -162,11 +173,17 @@ namespace DFU_Utility
             this.toolTip1.SetToolTip(this.ButtonStm32, "when this button is Enabled, ( green text)\r\nit will erase your module and then up" +
         "load the\r\ncode from the selected file.\r\nyou must FIRST Select the desired .bin f" +
         "ile.");
-            this.ButtonStm32.UseVisualStyleBackColor = true;
+            this.ButtonStm32.UseVisualStyleBackColor = false;
             this.ButtonStm32.Click += new System.EventHandler(this.ButtonStm32_Click);
             // 
             // ButtonGD32
             // 
+            this.ButtonGD32.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.ButtonGD32.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Black;
+            this.ButtonGD32.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Black;
+            this.ButtonGD32.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ButtonGD32.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold);
+            this.ButtonGD32.ForeColor = System.Drawing.Color.Gray;
             this.ButtonGD32.Location = new System.Drawing.Point(176, 34);
             this.ButtonGD32.MaximumSize = new System.Drawing.Size(165, 100);
             this.ButtonGD32.MinimumSize = new System.Drawing.Size(165, 100);
@@ -181,7 +198,12 @@ namespace DFU_Utility
             // buttonInstallGd32Driver
             // 
             this.buttonInstallGd32Driver.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonInstallGd32Driver.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.buttonInstallGd32Driver.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Black;
+            this.buttonInstallGd32Driver.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Black;
+            this.buttonInstallGd32Driver.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonInstallGd32Driver.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonInstallGd32Driver.ForeColor = System.Drawing.Color.Gray;
             this.buttonInstallGd32Driver.Location = new System.Drawing.Point(5, 34);
             this.buttonInstallGd32Driver.MaximumSize = new System.Drawing.Size(165, 100);
             this.buttonInstallGd32Driver.MinimumSize = new System.Drawing.Size(165, 100);
